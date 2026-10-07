@@ -46,3 +46,14 @@ if __name__ == "__main__":
         print("Status:", request["status"])
     else:
         print("Request not found")
+
+def get_team(category):
+    teams = {
+        "Plumbing": "Plumbing Team",
+        "Electrical": "Electrical Team",
+        "Heating": "Heating Team",
+        "Building": "Building Maintenance",
+        "Other": "Manual Review"
+    }
+
+    return teams.get(category, "Manual Review")

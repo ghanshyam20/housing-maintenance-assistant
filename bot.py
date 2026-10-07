@@ -1,4 +1,4 @@
-from maintenance import get_request, validate_request
+from maintenance import get_request, validate_request,get_team
 from classifier import classify_request
 
 
@@ -16,10 +16,12 @@ def process_request(request_id):
         return
 
     category = classify_request(request["description"])
+    team = get_team(category)
 
     print("Request:", request["request_id"])
     print("Problem:", request["description"])
     print("Category:", category)
+    print("Team:", team)
 
 
 if __name__ == "__main__":
