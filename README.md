@@ -56,7 +56,10 @@ Run the tests:
 pytest -v
 ```
 
-## How It Works
+## How the system works
+
+![Housing Maintenance Assistant flowchart](docs/flowchart.jpg)
+
 
 1. A maintenance request is read from the CSV file.
 2. Required fields are checked using Python rules.
