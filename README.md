@@ -69,3 +69,8 @@ pytest -v
 6. Approved assignments are saved and logged.
 
 The LLM runs locally with Ollama. No hosted AI API is used.
+
+
+## Future Improvements
+
+This project uses a CSV file and synthetic data for demonstration. In the future, i have plan  use a proper database, user authentication, and a simple web interface. The AI classification could also be tested with more maintenance requests to measure and improve its accuracy.
