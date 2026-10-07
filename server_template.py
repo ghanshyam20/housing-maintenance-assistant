@@ -1,6 +1,6 @@
 from mcp.server.mcpserver import MCPServer
 from mcp_types import ToolAnnotations
-from maintenance import get_request, update_request
+from maintenance import get_request, update_request,get_team
 
 
 mcp_server = MCPServer("housing-maintenance")
@@ -37,6 +37,7 @@ def assign_request(request_id: str, category: str, team: str) -> str:
 
     if request is None:
         return "Request not found"
+    team = get_team(category)
 
     update_request(request_id, category, team)
 
