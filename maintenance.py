@@ -14,6 +14,26 @@ def get_request(request_id):
     return None
 
 
+def validate_request(request):
+    required_fields = [
+        "request_id",
+        "resident_name",
+        "phone",
+        "address",
+        "apartment",
+        "description",
+    ]
+
+    missing = []
+
+    for field in required_fields:
+        if not request.get(field, "").strip():
+            missing.append(field)
+
+    return missing
+
+
+
 if __name__ == "__main__":
     request = get_request("M001")
 
