@@ -1,6 +1,7 @@
 from mcp.server.mcpserver import MCPServer
 from mcp_types import ToolAnnotations
 from maintenance import get_request, update_request,get_team
+from classifier import classify_request
 
 
 mcp_server = MCPServer("housing-maintenance")
@@ -21,6 +22,27 @@ def get_request_details(request_id: str) -> str:
         f"Status: {request['status']}\n"
         f"Category: {request['category']}\n"
         f"Team: {request['assigned_team']}"
+    )
+
+
+@mcp_server.tool(
+        annotations=ToolAnnotations
+        (readOnlyHint=True))
+def classify_maintenance_request(request_id: str) -> str:
+    """Classify a maintenance request using the local AI model."""
+
+    request = get_request(request_id)
+
+    if request is None:
+        return "Request not found"
+
+    category = classify_request(request["description"])
+    team = get_team(category)
+
+    return (
+        f"Request: {request_id}\n"
+        f"Category: {category}\n"
+        f"Suggested team: {team}"
     )
 
 
