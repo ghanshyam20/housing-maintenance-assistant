@@ -53,13 +53,20 @@ def classify_maintenance_request(request_id: str) -> str:
     )
 )
 def assign_request(request_id: str, category: str, team: str) -> str:
-    """Assign a category and maintenance team to a request."""
+    """Assign a maintenance request. Use the actual category returned by
+    classify_maintenance_request, such as Plumbing, Electrical, Heating,
+    Building, or Other. Do not use placeholder values."""
 
     request = get_request(request_id)
 
     if request is None:
         return "Request not found"
+    valid_categories = ["Plumbing", "Electrical", "Heating", "Building", "Other"]
+
+    if category not in valid_categories:
+        return f"Invalid category:{category}.Assignment not performed."
     team = get_team(category)
+
 
     update_request(request_id, category, team)
 

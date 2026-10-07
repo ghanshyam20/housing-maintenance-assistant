@@ -140,4 +140,4 @@ async def run_agent(question):
 
 if __name__ == "__main__":
     # TODO: replace with a question relevant to your own process.
-    asyncio.run(run_agent("Show me maintenance requests M005."))
+    asyncio.run(run_agent("Classify maintenance request M005 and assign it to the appropriate maintenance team."))

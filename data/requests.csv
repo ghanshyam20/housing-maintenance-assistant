@@ -1,11 +1,11 @@
 request_id,resident_name,phone,address,apartment,description,status,category,assigned_team
-M001,Mikko Laine,0400000001,Testikatu 10,3B,"Water is leaking under the kitchen sink.",Open,,
-M002,Laura Niemi,0400000002,Testikatu 10,5A,"The bedroom light does not work even after changing the bulb.",Open,,
-M003,Antti Koski,0400000003,Testikatu 12,2C,"The radiator is warm but the apartment is still very cold.",Open,,
-M004,Sara Maki,0400000004,Testikatu 12,4A,"The toilet keeps making noise and water keeps running.",Open,,
-M005,Janne Lehto,0400000005,Testikatu 14,1B,"The front door lock is very difficult to open.",Open,,
-M006,Emma Korhonen,0400000006,Testikatu 14,6C,"Two sockets in the living room suddenly stopped working.",Open,,
-M007,Oskari Niemi,0400000007,Testikatu 16,2A,"The apartment stays cold even when I turn the radiator higher.",Open,,
-M008,Aino Laine,0400000008,Testikatu 16,3C,"There is water on the bathroom floor every morning but I cannot see where it comes from.",Open,,
-M009,Elias Koski,0400000009,Testikatu 18,5B,"The balcony door does not close properly and cold air comes inside.",Open,,
-M010,Noora Virtanen,0400000010,Testikatu 18,2B,"There is a strange noise inside the wall during the night.",Open,,
+M001,Mikko Laine,0400000001,Testikatu 10,3B,Water is leaking under the kitchen sink.,Assigned,Plumbing,Plumbing Team
+M002,Laura Niemi,0400000002,Testikatu 10,5A,The bedroom light does not work even after changing the bulb.,Assigned,Electrical,Electrical Team
+M003,Antti Koski,0400000003,Testikatu 12,2C,The radiator is warm but the apartment is still very cold.,Open,,
+M004,Sara Maki,0400000004,Testikatu 12,4A,The toilet keeps making noise and water keeps running.,Open,,
+M005,Janne Lehto,0400000005,Testikatu 14,1B,The front door lock is very difficult to open.,Assigned,Building,Building Maintenance
+M006,Emma Korhonen,0400000006,Testikatu 14,6C,Two sockets in the living room suddenly stopped working.,Open,,
+M007,Oskari Niemi,0400000007,Testikatu 16,2A,The apartment stays cold even when I turn the radiator higher.,Open,,
+M008,Aino Laine,0400000008,Testikatu 16,3C,There is water on the bathroom floor every morning but I cannot see where it comes from.,Open,,
+M009,Elias Koski,0400000009,Testikatu 18,5B,The balcony door does not close properly and cold air comes inside.,Open,,
+M010,Noora Virtanen,0400000010,Testikatu 18,2B,There is a strange noise inside the wall during the night.,Open,,
