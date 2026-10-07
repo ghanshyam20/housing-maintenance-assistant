@@ -22,6 +22,12 @@ def process_request(request_id):
     print("Problem:", request["description"])
     print("Category:", category)
     print("Team:", team)
+    answer = input("Assign this team? (y/n): ").strip().lower()
+
+    if answer == "y":
+        print("Approved")
+    else:
+        print("Not approved")
 
 
 if __name__ == "__main__":
