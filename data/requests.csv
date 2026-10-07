@@ -1,0 +1,4 @@
+request_id,resident_name,phone,address,apartment,description,status,category,assigned_team
+M001,Mikko Laine,0400000001,Testikatu 10,3B,"Water is leaking under the kitchen sink.",Open,,
+M002,Laura Niemi,0400000002,Testikatu 10,5A,"The bedroom light does not work even after changing the bulb.",Open,,
+M003,Antti Koski,0400000003,Testikatu 12,2C,"The radiator is warm but the apartment is still very cold.",Open,,
