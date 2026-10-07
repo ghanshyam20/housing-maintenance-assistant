@@ -1,4 +1,4 @@
-from maintenance import get_request, validate_request,get_team
+from maintenance import get_request, validate_request,get_team,update_request
 from classifier import classify_request
 
 
@@ -25,10 +25,12 @@ def process_request(request_id):
     answer = input("Assign this team? (y/n): ").strip().lower()
 
     if answer == "y":
-        print("Approved")
+        update_request(request_id, category, team)
+        print("Approved and assigned")
     else:
         print("Not approved")
 
 
 if __name__ == "__main__":
-    process_request("M001")
+    request_id=input("Enter request ID: ").strip()
+    process_request(request_id)

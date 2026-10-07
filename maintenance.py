@@ -57,3 +57,19 @@ def get_team(category):
     }
 
     return teams.get(category, "Manual Review")
+
+
+def update_request(request_id, category, team):
+    with open("data/requests.csv", "r", newline="") as file:
+        requests = list(csv.DictReader(file))
+
+    for request in requests:
+        if request["request_id"] == request_id:
+            request["status"] = "Assigned"
+            request["category"] = category
+            request["assigned_team"] = team
+
+    with open("data/requests.csv", "w", newline="") as file:
+        writer = csv.DictWriter(file, fieldnames=requests[0].keys())
+        writer.writeheader()
+        writer.writerows(requests)
