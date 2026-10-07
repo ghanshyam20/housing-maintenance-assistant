@@ -15,6 +15,11 @@ def process_request(request_id):
         print("Missing fields:", missing)
         return
 
+    if request["status"] != "Open":
+        print(f"Request {request_id} is already {request['status']}.")
+        print(f"Assigned team: {request['assigned_team']}")
+        return
+
     category = classify_request(request["description"])
     team = get_team(category)
 
