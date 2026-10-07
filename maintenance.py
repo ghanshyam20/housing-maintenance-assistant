@@ -1,4 +1,5 @@
 import csv
+from logger import log_action
 
 REQUESTS_FILE = "data/requests.csv"
 
@@ -73,3 +74,4 @@ def update_request(request_id, category, team):
         writer = csv.DictWriter(file, fieldnames=requests[0].keys())
         writer.writeheader()
         writer.writerows(requests)
+    log_action(request_id,f"assigned as {category} to {team}")
