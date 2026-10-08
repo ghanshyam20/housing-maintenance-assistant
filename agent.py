@@ -138,6 +138,120 @@ async def run_agent(question):
         print(f"FINAL: gave up after {MAX_ROUNDS} rounds without a final answer.")
 
 
+async def run_maintenance_workflow(request_id):
+    """Project-specific workflow for dependent maintenance tools.
+
+    The local LLM performs the judgment-based classification through MCP.
+    Python passes that result to the consequential assignment tool because
+    the local model does not reliably chain dependent tool results.
+    """
+
+    async with AsyncExitStack() as stack:
+        sessions = await connect_all(stack)
+
+        tool_session = {}
+        tool_obj = {}
+
+        for session in sessions:
+            result = await session.list_tools()
+
+            for tool in result.tools:
+                tool_session[tool.name] = session
+                tool_obj[tool.name] = tool
+
+        print(
+            f"Discovered {len(tool_obj)} tool(s): "
+            f"{list(tool_obj.keys())}"
+        )
+
+        # STEP 1: Read the request through MCP
+        session = tool_session["get_request_details"]
+
+        result = await session.call_tool(
+            "get_request_details",
+            {"request_id": request_id}
+        )
+
+        request_text = "\n".join(
+            c.text for c in result.content
+            if hasattr(c, "text")
+        )
+
+        print("\n--- Request ---")
+        print(request_text)
+
+        if request_text == "Request not found":
+            print("\nWorkflow stopped.")
+            return
+
+        if "Status: Open" not in request_text:
+            print("\nRequest is not Open. Workflow stopped.")
+            return
+
+        # STEP 2: AI classification through MCP
+        session = tool_session["classify_maintenance_request"]
+
+        result = await session.call_tool(
+            "classify_maintenance_request",
+            {"request_id": request_id}
+        )
+
+        classification_text = "\n".join(
+            c.text for c in result.content
+            if hasattr(c, "text")
+        )
+
+        print("\n--- Local AI Classification ---")
+        print(classification_text)
+
+        # STEP 3: Pass dependent result in Python
+        category = None
+
+        for line in classification_text.splitlines():
+            if line.startswith("Category:"):
+                category = line.split(":", 1)[1].strip()
+                break
+
+        valid_categories = {
+            "Plumbing",
+            "Electrical",
+            "Heating",
+            "Building",
+            "Other",
+        }
+
+        if category not in valid_categories:
+            print("\nInvalid AI classification. Workflow stopped.")
+            return
+
+        # STEP 4: Consequential MCP action
+        session = tool_session["assign_request"]
+        tool = tool_obj["assign_request"]
+
+        args = {
+            "request_id": request_id,
+            "category": category,
+        }
+
+        print("\n--- Proposed Action ---")
+        print(f"Request: {request_id}")
+        print(f"Category: {category}")
+
+        text, cancelled = await confirm_and_call(
+            session,
+            tool,
+            "assign_request",
+            args
+        )
+
+        print("\n--- Result ---")
+        print(text)
+
+        if cancelled:
+            print("No data was changed.")
+
+
 if __name__ == "__main__":
-    # TODO: replace with a question relevant to your own process.
-    asyncio.run(run_agent("Classify maintenance request M006 and assign it to the appropriate maintenance team."))
+    request_id = input("Enter request ID: ").strip()
+    asyncio.run(run_maintenance_workflow(request_id))
+    

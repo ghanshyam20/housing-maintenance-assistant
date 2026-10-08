@@ -52,7 +52,7 @@ def classify_maintenance_request(request_id: str) -> str:
         readOnlyHint=False
     )
 )
-def assign_request(request_id: str, category: str, team: str) -> str:
+def assign_request(request_id: str, category: str ) -> str:
     """Assign a maintenance request. Use the actual category returned by
     classify_maintenance_request, such as Plumbing, Electrical, Heating,
     Building, or Other. Do not use placeholder values."""
@@ -61,6 +61,10 @@ def assign_request(request_id: str, category: str, team: str) -> str:
 
     if request is None:
         return "Request not found"
+
+    if request["status"] != "Open":
+        return f"Request {request_id} is already {request['status']}."
+
     valid_categories = ["Plumbing", "Electrical", "Heating", "Building", "Other"]
 
     if category not in valid_categories:
